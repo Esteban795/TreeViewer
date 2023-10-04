@@ -1,10 +1,10 @@
 open Graphics;;
-let step_h = 20;;
-let step_v = 20;;
-let x0 = 200;;
-let y0 = 200;;
-let edge = 16;;
-let radius = 15;;
+let step_h = 75;;
+let step_v = 75;;
+let x0 = 20;;
+let y0 = 400;;
+let edge = 10;;
+let radius = 30;;
 
 type tree =
  | Empty 
@@ -30,16 +30,14 @@ let draw_rectangles (t : tree) =
       draw_rect x yy (x2 - x) (y - yy);
       x2, yy 
   in
-  open_graph " ";
   let _ = aux x0 y0 t in 
   ()
-  (* let _ = wait_next_event [Button_down] in close_graph ();; *)
 
 
 let skeleton (t : tree) =
   let rec aux x y tr = 
     match tr with
-    | Empty -> x,y
+    | Empty -> x,x
     | Node (l,_,_ ,r) -> 
       let x1, xr1 = aux x (y - step_v) l in 
       let x2, xr2  = aux (x1 + 2 * step_h) (y - step_v) r in
@@ -48,10 +46,8 @@ let skeleton (t : tree) =
       lineto xr2 (y - step_v);  
       x2, (x1 + step_h) 
   in 
-  open_graph " ";
   let _ = aux x0 y0 t in 
   ()
-  (* let _ = wait_next_event [Button_down] in close_graph ();; *)
 
 
 let draw_node (t : tree) x y = 
@@ -80,16 +76,14 @@ let draw_nodes (t : tree) =
       let x2, _ = aux (x1 + 2 * step_h) (y - step_v) r in
       x2, (x1 + step_h)
   in
-  open_graph " ";
   let _ = aux x0 y0 t in 
   ()
-  (* let _ = wait_next_event [Button_down] in close_graph ();; *)
 
 
 let draw_tree (t : tree) = 
   let rec aux x y tr = 
     match tr with
-    | Empty -> x,y
+    | Empty -> x,x
     | Node(l,_,_ ,r) ->
       let x1, xr1 = aux x (y - step_v) l in
       let x2, xr2 = aux (x1 + 2 * step_h) (y - step_v) r in
