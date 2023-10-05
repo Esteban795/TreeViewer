@@ -1,4 +1,4 @@
 (executable
  (public_name TreeViewer)
  (name main)
- (libraries graphics tree constants))
+ (libraries graphics tree constants draw heap))
